@@ -240,8 +240,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - ![](Images/01.png)
     - Hint: the back propagation of two nodes going to one node from the back is by adding the two derivatives.
   - One more thing about vectorized gradients:
-  <img src="Images/1.png">
-  <img src="Images/2.png">
+    - ![](Images/1.png)
+    - ![](Images/2.png)
   - Modularized implementation: forward/ backward API (example multiply code):
 
     - ```python
@@ -428,6 +428,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Problems:
       - Not zero centered.
     - If weights aren't initialized good, maybe 75% of the neurons will be dead and thats a waste computation. But its still works. This is an active area of research to optimize this.
+    - ![](Images/4.png)
+    - ![](Images/3.png)
     - To solve the issue mentioned above, people might initialize all the biases by 0.01
 
   - Leaky RELU:
