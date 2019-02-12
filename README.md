@@ -587,6 +587,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Adjust your ranges and try again.
   - Its better to try random search instead of grid searches (In log space)
 
+  - Attribute classification. 
+    ![](Images/Multilabel-Classification.png)
 
 
 ## 07. Training neural networks II
