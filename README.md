@@ -669,6 +669,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - It need a Fixing bias to fix starts of gradients.
     - Is the best technique so far runs best on a lot of problems.
     - With `beta1 = 0.9` and `beta2 = 0.999` and `learning_rate = 1e-3` or `5e-4` is a great starting point for many models!
+    - ![](Images/Adam.png)
 
   - **Learning decay**
 
