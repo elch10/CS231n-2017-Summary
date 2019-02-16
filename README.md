@@ -725,13 +725,9 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - For example flip the image, or rotate it.
     - Example in ResNet:
       - Training: Sample random crops and scales:
-        1. Pick random L in range [256,480]
-        2. Resize training image, short side = L
-        3. Sample random 224x244 patch.
-      - Testing: average a fixed set of crops
-        1. Resize image at 5 scales: {224, 256, 384, 480, 640}
-        2. For each size, use 10 224x224 crops: 4 corners + center + flips
+        ![](Images/Augmentation.png)
       - Apply Color jitter or PCA
+        ![](Images/Augmentation2.png)
       - Translation, rotation, stretching.
   - Drop connect
     - Like drop out idea it makes a regularization.
@@ -756,9 +752,10 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     2. Freeze the layers except the last layer and feed your small dataset to learn only the last layer.
     3. Not only the last layer maybe trained again, you can fine tune any number of layers you want based on the number of data you have
 
-  - Guide to use transfer learning:
+    ![](Images/Transfer-Learning.png)
 
-    - |                         | Very Similar dataset               | very different dataset                   |
+  - Guide to use transfer learning:
+    |                         | Very Similar dataset               | very different dataset                   |
       | ----------------------- | ---------------------------------- | ---------------------------------------- |
       | **very little dataset** | Use Linear classifier on top layer | You're in trouble.. Try linear classifier from different stages |
       | **quite a lot of data** | Finetune a few layers              | Finetune a large layers                  |
