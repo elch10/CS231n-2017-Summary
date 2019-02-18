@@ -819,12 +819,15 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Tensorflow uses a static graph architecture.
   - Tensorflow variables live in the graph. while the placeholders are feed each run.
   - Global initializer function initializes the variables that lives in the graph.
+    ![](Images/Tensorflow1.png)
   - Use predefined optimizers and losses.
+    ![](Images/Tensorflow2.png)
   - You can make a full layers with layers.dense function.
   - **Keras** (High level wrapper):
     - Keras is a layer on top pf Tensorflow, makes common things easy to do.
     - So popular!
     - Trains a full deep NN in a few lines of codes.
+    - ![](Images/Keras.png)
   - There are a lot high level wrappers:
     - Keras
     - TFLearn
@@ -845,14 +848,16 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Tensor: `ndarray` but runs on GPU     `#Like numpy arrays in tensorflow`
       - Variable: Node in a computational graphs; stores data and gradient `#Like Tensor, Variable, Placeholders`
     - Module: A NN layer; may store state or learnable weights`#Like tf.layers in tensorflow`
-  - In PyTorch the graphs runs in the same loop you are executing which makes it easier for debugging. This is called a dynamic graph.
+  - In PyTorch the graphs runs in the same loop you are executing which makes it easier for debugging. This is called a dynamic graph. (Every time graph is built)
   - In PyTorch you can define your own autograd functions by writing forward and backward for tensors. Most of the times it will implemented for you.
-  - Torch.nn is a high level api like keras in tensorflow. You can create the models and go on and on.
+  - `Torch.nn` is a high level api like keras in tensorflow. You can create the models and go on and on.
     - You can define your own nn module!
   - Also Pytorch contains optimizers like tensorflow.
-  - It contains a data loader that wraps a Dataset and provides minbatches, shuffling and multithreading.
+  - ![](Images/PyTorch.png)
+  - It contains a `data loader` that wraps a Dataset and provides minbatches, shuffling and multithreading.
+  - ![](Images/PyTorch-DataLoader.png)
   - PyTorch contains the best and super easy to use pretrained models
-  - PyTorch contains Visdom that are like tensorboard. but Tensorboard seems to be more powerful.
+  - PyTorch contains `Visdom` that are like tensorboard. but Tensorboard seems to be more powerful.
   - PyTorch is new and still evolving compared to Torch. Its still in beta state.
   - PyTorch is best for research.
 
@@ -876,10 +881,12 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Conditional
 
     - Is easier in dynamic graphs. And more complicated in static graphs.
+    ![](Images/Conditional.png)
 
   - Loops:
 
     - Is easier in dynamic graphs. And more complicated in static graphs.
+    ![](Images/Loops.png)
 
 - Tensorflow fold make dynamic graphs easier in Tensorflow through dynamic batching.
 
