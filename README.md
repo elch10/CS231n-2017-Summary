@@ -755,6 +755,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     ![](Images/Transfer-Learning.png)
 
   - Guide to use transfer learning:
+
     |                         | Very Similar dataset               | very different dataset                   |
       | ----------------------- | ---------------------------------- | ---------------------------------------- |
       | **very little dataset** | Use Linear classifier on top layer | You're in trouble.. Try linear classifier from different stages |
@@ -976,6 +977,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Won on 2014 with GoogleNet with error 7.3%
   - Smaller filters with deeper layers.
   - The great advantage of VGG was the insight that multiple 3 × 3 convolution in sequence can emulate the effect of larger receptive fields, for examples 5 × 5 and 7 × 7.
+    ![](Images/VGG.png)
   - Used the simple 3 x 3 Conv all through the network.
     - 3 (3 x 3) filters has the same effect as 7 x 7
   - ![](Images/03.png)
@@ -1011,6 +1013,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
         - (3 x 3), 192 filter                 `# output shape (28,28,192)`
         - (5 x 5), 96 filter                   `# output shape (28,28,96)`
         - (3 x 3) Max pooling            `# output shape (28,28,256)`
+        - We preserve (28, 28) shape by adding zero-padding
       - After concatenation this will be `(28,28,672)`
     - By this design -We call Naive- it has a big computation complexity.
       - The last example will make:
@@ -1022,6 +1025,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       - Inspired from NiN ([Network in network](https://arxiv.org/abs/1312.4400))
     - ![](Images/05.png)
     - The bottleneck solution will make a total operations of 358M on this example which is good compared with the naive implementation.
+      ![](Images/GoogLeNet.png)
   - So GoogleNet stacks this Inception module multiple times to get a full architecture of a network that can solve a problem without the Fully connected layers.
   - Just to mention, it uses an average pooling layer at the end before the classification step.
   - Full architecture:
