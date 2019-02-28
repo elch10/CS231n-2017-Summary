@@ -240,6 +240,9 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - ![](Images/01.png)
     - Hint: the back propagation of two nodes going to one node from the back is by adding the two derivatives.
   - One more thing about vectorized gradients:
+    - ![](Images/ChainRule.png)
+    - ![](Images/DiffEquation1.jpg)
+    - ![](Images/DiffEquation2.jpg)
     - ![](Images/1.png)
     - ![](Images/2.png)
   - Modularized implementation: forward/ backward API (example multiply code):
@@ -1171,6 +1174,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - ```python
       h[t] = fw (h[t-1], x[t])			# Where fw is some function with parameters W
       ```
+    
+    - `h[t]` hidden vector (aka hidden state)
 
     - The same function and the same set of parameters are used at every time step.
 
@@ -1180,6 +1185,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       h[t] = tanh (W[h,h]*h[t-1] + W[x,h]*x[t])    # Then we save h[t]
       y[t] = W[h,y]*h[t]
       ```
+    
+    - `h[t]` hidden vector (aka hidden state)
 
     - This is the simplest example of a RNN.
 
@@ -1234,6 +1241,9 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 - Multilayer RNNs is generally using some layers as the hidden layer that are feed into again. **LSTM** is a multilayer RNNs.
 
 - Backward flow of gradients in RNN can explode or vanish. Exploding is controlled with gradient clipping. Vanishing is controlled with additive interactions (LSTM)
+  - ![](Images/VanillaRnnGradientFlow.png)
+  - ![](Images/Exploding.png)
+  - ![](Images/Vanishing.png)
 
 - LSTM stands for Long Short Term Memory. It was designed to help the vanishing gradient problem on RNNs.
 
