@@ -325,16 +325,18 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - We do this with dot product: `W.T*X + b`. This equation uses the broadcasting technique.
     - So we need to get the values of `W` and `b`
     - We usually deal with the filter (`W`) as a vector not a matrix.
+    - ![](Images/Conv1.png)
   - We call output of the convolution activation map. We need to have multiple activation map.
-    - Example if we have 6 filters, here are the shapes:
+    - Example if we have 5 filters, here are the shapes:
       - Input image                        `(32,32,3)`
       - filter size                              `(5,5,3)`
         - We apply 6 filters. The depth must be three because the input map has depth of three.
-      - Output of Conv.                 `(28,28,6)` 
+      - Output of Conv.                 `(28,28,5)` 
         - if one filter it will be   `(28,28,1)`
-      - After RELU                          `(28,28,6)` 
-      - Another filter                     `(5,5,6)`
+      - After RELU                          `(28,28,5)` 
+      - Another filter                     `(5,5,5)`
       - Output of Conv.                 `(24,24,10)`
+      - ![](Images/Conv2.png)
   - It turns out that convNets learns in the first layers the low features and then the mid-level features and then the high level features.
   - After the Convnets we can have a linear classifier for a classification task.
   - In Convolutional neural networks usually we have some (Conv ==> Relu)s and then we apply a pool operation to downsample the size of the activation.
@@ -377,6 +379,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 - Example of pooling is the maxpooling.
   - Parameters of max pooling is the size of the filter and the stride"
     - Example `2x2` with stride `2`                     `# Usually the two parameters are the same 2 , 2`
+    - ![](Images/MaxPooling.png)
 - Also example of pooling is average pooling.
   - In this case it might be learnable.
 
@@ -511,6 +514,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       ```
 
     - The standard deviations is going to zero in deeper networks. and the gradient will vanish sooner in deep networks.
+      ![](Images/Training-NN-RandomInitialization2.png)
 
     - ```python
       W = 1 * np.random.rand(D, H) 
@@ -518,6 +522,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       ```
 
     - The network will explode with big numbers!
+      ![](Images/Training-NN-RandomInitialization.png)
 
   - ***Xavier initialization***:
 
@@ -526,8 +531,10 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       ```
 
     - It works because we want the variance of the input to be as the variance of the output.
+      ![](Images/Xavier.png)
 
     - But it has an issue, It breaks when you are using RELU.
+      ![](Images/Xavier-Problem.png)
 
   - ***He initialization*** (Solution for the RELU issue):
 
@@ -536,6 +543,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       ```
 
     - Solves the issue with RELU. Its recommended when you are using RELU
+      ![](Images/He.png)
 
   - Proper initialization is an active area of research.
 
@@ -545,7 +553,9 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - It speeds up the training. You want to do this a lot.
     - Made by Sergey Ioffe and Christian Szegedy at 2015.
   - We make a Gaussian activations in each layer. by calculating the mean and the variance.
+  ![](Images/BatchNorm.png)
   - Usually inserted after (fully connected or Convolutional layers) and (before nonlinearity).
+  ![](Images/BatchNorm2.png)
   - Steps (For each output of a layer)
     1. First we compute the mean and variance^2 of the batch for each feature.
     2. We normalize by subtracting the mean and dividing by square root of (variance^2 + epsilon)
@@ -554,6 +564,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
        - gamma and beta are learnable parameters.
        - it basically possible to say “Hey!! I don’t want zero mean/unit variance input, give me back the raw input - it’s better for me.”
        - Hey shift and scale by what you want not just the mean and variance!
+  - ![](Images/BatchNorm3.png)
   - The algorithm makes each layer flexible (It chooses which distribution it wants)
   - We initialize the BatchNorm Parameters to transform the input to zero mean/unit variance distributions but during training they can learn that any other distribution might be better.
   - During the running of the training we need to calculate the globalMean and globalVariance for each layer by using weighted average.
@@ -718,9 +729,12 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - So you will chooses some activation and makes them zero.
     - It works because:
       - It forces the network to have redundant representation; prevent co-adaption of features!
+      ![](Images/Dropout.png)
       - If you think about this, It ensemble some of the models in the same model!
+      ![](Images/Dropout2.png)
     - At test time we might multiply each dropout layer by the probability of the dropout.
     - Sometimes at test time we don't multiply anything and leave it as it is.
+    ![](Images/Dropout3.png)
     - With drop out it takes more time to train.
   - **Data augmentation**:
     - Another technique that makes Regularization.
@@ -1181,10 +1195,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 
   - (Vanilla) Recurrent Neural Network:
 
-    - ```
-      h[t] = tanh (W[h,h]*h[t-1] + W[x,h]*x[t])    # Then we save h[t]
-      y[t] = W[h,y]*h[t]
-      ```
+    - ![](Images/VanillaRNN.png)
     
     - `h[t]` hidden vector (aka hidden state)
 
