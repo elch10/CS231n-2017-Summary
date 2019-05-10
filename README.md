@@ -1234,10 +1234,15 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 - Backpropagation through time Forward through entire sequence to compute loss, then backward through entire sequence to compute gradient.
 
   - But if we choose the whole sequence it will be so slow and take so much memory and will never converge!
+  ![](Images/RNN-Backprop.png)
 
 - So in practice people are doing "Truncated Backpropagation through time" as we go on we Run forward and backward through chunks of the sequence instead of whole sequence
 
   - Then Carry hidden states forward in time forever, but only backpropagate for some smaller number of steps.
+  ![](Images/TruncatedBackprop.png)
+  ![](Images/TruncatedBackprop2.png)
+
+- **On video we have "Visualazing and understanding RNN" paper**
 
 - Example on image captioning:
 
@@ -1248,6 +1253,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 - Image Captioning with Attention is a project in which when the RNN is generating captions, it looks at a specific part of the image not the whole image.
 
   - Image Captioning with Attention technique is also used in "Visual Question Answering" problem
+  ![](Images/Captioning.png)
+  ![](Images/Captioning2.png)
 
 - Multilayer RNNs is generally using some layers as the hidden layer that are feed into again. **LSTM** is a multilayer RNNs.
 
@@ -1314,31 +1321,14 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Downsampling is an operation like Pooling and strided convolution.
 
     - Upsampling is like "Nearest Neighbor" or "Bed of Nails" or "Max unpooling"
-
-      - **Nearest Neighbor** example:
-
-        - ```
-          Input:   1  2               Output:   1  1  2  2
-                   3  4                         1  1  2  2
-                                                3  3  4  4
-                                                3  3  4  4
-          ```
-
-      - **Bed of Nails** example:
-
-        - ```
-          Input:   1  2               Output:   1  0  2  0
-                   3  4                         0  0  0  0
-                                                3  0  4  0
-                                                0  0  0  0
-          ```
+    ![](Images/Unpooling.png)
 
       - **Max unpooling** is depending on the earlier steps that was made by max pooling. You fill the pixel where max pooling took place and then fill other pixels by zero.
 
     - Max unpooling seems to be the best idea for upsampling.
 
     - There are an idea of Learnable Upsampling called "**Transpose Convolution**"
-
+    ![](Images/Transpose-Convolution.png)
       - Rather than making a convolution we make the reverse. 
       - Also called:
         - Upconvolution.
@@ -1359,20 +1349,24 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Softmax loss for classification
     - Regression (Linear loss) for the localization (L2 loss)
   - Loss = SoftmaxLoss + L2 loss
+  ![](Images/Classification-Localization.png)
   - Often the first Conv layers are pretrained NNs like AlexNet!
   - This technique can be used in so many other problems like:  Human Pose Estimation.
+  ![](Images/Human-Pose.png)
 
 - **<u>Object Detection</u>**
 
   - A core idea of computer vision. We will talk by details in this problem.
   - The difference between "Classification + Localization" and this problem is that here we want to detect one or mode different objects and its locations!
   - First idea is to use a sliding window
+    ![](Images/Sliding-Window.png)
     - Worked well and long time.
     - The steps are:
       - Apply a CNN to many different crops of the image, CNN classifies each crop as object or background.
     - The problem is we need  to apply CNN to huge number of locations and scales, very computationally expensive!
     - The brute force sliding window will make us take thousands of thousands of time.
   - Region Proposals will help us deciding which region we should run our NN at:
+    ![](Images/Region-Proposals.png)
     - Find **blobby** image regions that are likely to contain objects.
     - Relatively fast to run; e.g. Selective Search gives 1000 region proposals in a few seconds on CPU
   - So now we can apply one of the Region proposals networks and then apply the first idea.
@@ -1392,6 +1386,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Takeaways
     - Faster R-CNN is slower but more accurate.
     - SSD/YOLO is much faster but not as accurate.
+    ![](Images/SSD.png)
 
 - **<u>Denese Captioning</u>**
 
@@ -1409,7 +1404,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - There are a lot of good results out of this paper.
     - It sums all the things that we have discussed in this lecture.
     - Performance of this seems good.
-
+    ![](Images/Mask-R-CNN.png)
 
 
 ## 12. Visualizing and Understanding
