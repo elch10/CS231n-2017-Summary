@@ -1315,6 +1315,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - So in practice we don't see something like this right now.
 
   - The third idea is based on the last idea. The difference is that we are downsampling and upsampling inside the network.
+    ![](Images/Fully-Convolutional.png)
 
     - We downsample because using the whole image as it is very expensive. So we go on multiple layers downsampling and then upsampling in the end.
 
@@ -1335,6 +1336,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
         - Fractionally strided convolution
         - Backward strided convolution
       - Learn the artimitic of the upsampling please refer to chapter 4 in this [paper](https://arxiv.org/abs/1603.07285).
+    ![](Images/Transpose-Convolution1.png)
 
 - **<u>Classification + Localization</u>**:
 
@@ -1416,6 +1418,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 - A first approach is to visualize filters of the first layer.
 
   - Maybe the shape of the first layer filter is 5 x 5 x 3, and the number of filters are 16. Then we will have 16 different "colored" filter images.
+   ![](Images/Visualize-Filters.png)
   - It turns out that these filters learns primitive shapes and oriented edges like the human brain does.
   - These filters really looks the same on each Conv net you will train, Ex if you tried to get it out of AlexNet, VGG, GoogleNet, or ResNet.
   - This will tell you what is the first convolution layer is looking for in the image.
@@ -1423,6 +1426,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 - We can visualize filters from the next layers but they won't tell us anything.
 
   - Maybe the shape of the first layer filter is 5 x 5 x 20, and the number of filters are 16. Then we will have 16*20 different "gray" filter images.
+  ![](Images/Visualize-Filters2.png)
 
 - In AlexNet, there was some FC layers in the end. If we took the 4096-dimensional feature vector for an image, and collecting these feature vectors.
 
@@ -1431,6 +1435,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - This similarity tells us that these CNNs are really getting the semantic meaning of these images instead of on the pixels level!
   - We can make a dimensionality reduction on the 4096 dimensional feature and compress it to 2 dimensions.
     - This can be made by PCA, or t-SNE.
+    ![](Images/Last-Layer-Dimensionallity-Reduction.png)
     - t-SNE are used more with deep learning to visualize the data. Example can be found [here](http://cs.stanford.edu/people/karpathy/cnnembed/).
 
 - We can Visualize the activation maps.
@@ -1449,6 +1454,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Visualize image patches that correspond to maximal activations.
       - We will find that each neuron is looking into a specific part of the image.
       - Extracted images are extracted using receptive field.
+      ![](Images/Activating-Patches.png)
 
 - Another idea is **Occlusion Experiments**
 
@@ -1461,11 +1467,14 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Like Occlusion Experiments but with a completely different approach
   - We Compute gradient of (unnormalized) class score with respect to image pixels, take absolute value and max over RGB channels. It will get us a gray image that represents the most important areas in the image.
   - This can be used for Semantic Segmentation sometimes.
+  ![](Images/Saliency-Map.png)
 
 - (guided) backprop Makes something like **Maximally Activating Patches** but unlike it gets the pixels in which we are caring of.
 
   - In this technique choose a channel like Maximally Activating Patches and then compute gradient of neuron value with respect to image pixels
   - Images come out nicer if you only backprop positive gradients through each RELU (guided backprop)
+  ![](Images/Guided-Backprop.png)
+  ![](Images/Guided-Backprop2.png)
 
 - **Gradient Ascent**
 
@@ -1475,26 +1484,12 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 
   - We want to maximize the neuron with the input image. So here instead we are trying to learn the image that maximize the activation:
 
-    - ```python
-      # R(I) is Natural image regularizer, f(I) is the neuron value.
-      I *= argmax(f(I)) + R(I)
-      ```
-
-  - Steps of gradient ascent
-
-    - Initialize image to zeros.
-    - Forward image to compute current scores.
-    - Backprop to get gradient of neuron value with respect to image pixels.
-    - Make a small update to the image
-
-  - `R(I)` may equal to L2 of generated image.
+    ![](Images/Gradient-Ascent.png)
+    ![](Images/Gradient-Ascent2.png)
+    ![](Images/Gradient-Ascent3.png)
 
   - To get a better results we use a better regularizer:
-
-    - penalize L2 norm of image; also during optimization periodically:
-      - Gaussian blur image
-      - Clip pixels with small values to 0
-      - Clip pixels with small gradients to 0
+    ![](Images/Gradient-Ascent4.png)
 
   - A better regularizer makes out images cleaner!
 
@@ -1518,13 +1513,9 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 
   - Google released deep dream on their website.
   - What its actually doing is the same procedure as fooling the NN that we discussed, but rather than synthesizing an image to maximize a specific neuron, instead try to amplify the neuron activations at some layer in the network.
-  - Steps:
-    - Forward: compute activations at chosen layer.		`# form an input image (Any image)`
-    - Set gradient of chosen layer equal to its activation.
-      - Equivalent to `I* = arg max[I] sum(f(I)^2)`
-    - Backward: Compute gradient on image.
-    - Update image.
+    ![](Images/Amplify.png)
   - The code of deep dream is online you can download and check it yourself.
+  ![](Images/Amplify-Result.png)
 
 - **Feature Inversion**
 
@@ -1532,6 +1523,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Given a CNN feature vector for an image, find a new image that: 
     - Matches the given feature vector.
     - *looks natural* (image prior regularization) 
+  ![](Images/Feature-Inversion.png)
+  ![](Images/Feature-Inversion-Example.png)
 
 - **Texture Synthesis**
 
@@ -1540,22 +1533,28 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - There is an algorithm which doesn't depend on NN:
     - Wei and Levoy, Fast Texture Synthesis using Tree-structured Vector Quantization, SIGGRAPH 2000
     - Its a really simple algorithm
+    ![](Images/Texture-Synthesis.png)
   - The idea here is that this is an old problem and there are a lot of algorithms that has already solved it but simple algorithms doesn't work well on complex textures!
   - An idea of using NN has been proposed on 2015 based on gradient ascent and called it "Neural Texture Synthesis"
     - It depends on something called Gram matrix.
+    ![](Images/Gram.png)
+    ![](Images/Neural-Texture-Synthesis.png)
+    ![](Images/Neural-Texture-Synthesis-Example.png)
 
 - Neural Style Transfer =  Feature + Gram Reconstruction
 
   - Gatys, Ecker, and Bethge, Image style transfer using Convolutional neural networks, CVPR 2016
   - Implementation by pytorch [here](https://github.com/jcjohnson/neural-style).
+  ![](Images/Style-Transfer.png)
 
 - Style transfer requires many forward / backward passes through VGG; very slow!
 
   - Train another neural network to perform style transfer for us!
   - Fast Style Transfer is the solution.
+  ![](Images/Fast-Style-Transfer.png)
   - Johnson, Alahi, and Fei-Fei, Perceptual Losses for Real-Time Style Transfer and Super-Resolution, ECCV 2016
   - https://github.com/jcjohnson/fast-neural-style
-
+  
 - There are a lot of work on these style transfer and it continues till now!
 
 - Summary:
@@ -1576,7 +1575,6 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - |                | Supervised Learning                      | Unsupervised Learning                    |
     | -------------- | ---------------------------------------- | ---------------------------------------- |
     | Data structure | Data: (x, y), and x is data, y is label  | Data: x, Just data, no labels!           |
-    | Data price     | Training data is expensive in a lot of cases. | Training data are cheap!                 |
     | Goal           | Learn a function to map x -> y           | Learn some underlying hidden structure of the data |
     | Examples       | Classification, regression, object detection, semantic segmentation, image captioning | Clustering, dimensionality reduction, feature learning, density estimation |
 
