@@ -96,6 +96,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 
   - `L[i] = Sum where all classes except the predicted class (max(0, s[j] - s[y[i]] + 1))`
   - We call this ***the hinge loss***.
+  ![](Images/Multiclass-SVM-loss.png)
   - Loss function means we are happy if the best prediction are the same as the true value other wise we give an error with 1 margin.
   - Example:
     - ![](Images/40.jpg)
@@ -148,6 +149,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Log of the probability of the good class. We want it to be near 1 thats why we added a minus.
 
     - Softmax loss is called cross-entropy loss.
+    ![](Images/Softmax-loss.png)
 
   - Consider this numerical problem when you are computing Softmax:
 
@@ -159,7 +161,9 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       f -= np.max(f) # f becomes [-666, -333, 0]
       p = np.exp(f) / np.sum(np.exp(f)) # safe to do, gives the correct answer
       ```
-
+  - Softmax vs SVM
+    ![](Images/svmvssoftmax.png)
+    
 - **Optimization**:
 
   - How we can optimize loss functions we discussed?
