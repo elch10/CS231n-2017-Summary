@@ -1542,6 +1542,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - An idea of using NN has been proposed on 2015 based on gradient ascent and called it "Neural Texture Synthesis"
     - It depends on something called Gram matrix.
     ![](Images/Gram.png)
+    So, this somehow captures some second order statistics about which features, in that feature map tend to activate to together at different spacial positions.
     ![](Images/Neural-Texture-Synthesis.png)
     ![](Images/Neural-Texture-Synthesis-Example.png)
 
@@ -1604,25 +1605,16 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - Generative models of time-series data can be used for simulation and planning (reinforcement learning applications!)
     - Training generative models can also enable inference of latent representations that can be useful as general features
   - Taxonomy of Generative Models:
-    - ![](Images/52.png)
+    ![](Images/52.png)
   - In this lecture we will discuss: PixelRNN/CNN, Variational Autoencoder, and GANs as they are the popular models in research now.
 
 - **PixelRNN** and **PixelCNN**
 
-  - In a full visible belief network we use the chain rule to decompose likelihood of an image x into product of 1-d distributions
-    - `p(x) = sum(p(x[i]| x[1]x[2]....x[i-1]))`
-    - Where p(x) is the Likelihood of image x and x[i] is Probability of i’th pixel value given all previous pixels.
-  - To solve the problem we need to maximize the likelihood of training data but the distribution is so complex over pixel values.
-  - Also we will need to define ordering of <u>previous pixels</u>.
+  - ![](Images/ExplicitDensityModel.png)
   - PixelRNN
-    - Founded by [van der Oord et al. 2016]
-    - Dependency on previous pixels modeled using an RNN (LSTM)
-    - Generate image pixels starting from corner
-    - Drawback: sequential generation is slow! because you have to generate pixel by pixel!
+    ![](Images/PixelRNN.png)
   - PixelCNN
-    - Also Founded by [van der Oord et al. 2016]
-    - Still generate image pixels starting from corner.
-    - Dependency on previous pixels now modeled using a CNN over context region
+    ![](Images/PixelCNN.png)
     - Training is faster than PixelRNN (can parallelize convolutions since context region values known from training images)
     - Generation must still proceed sequentially still slow.
   - There are some tricks to improve PixelRNN & PixelCNN.
@@ -1646,21 +1638,21 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - `L[i] = |y[i] - y'[i]|^2`
       - After training we though away the decoder.`# Now we have the features we need`
   - We can use this encoder we have to make a supervised model.
+    - ![](Images/Autoencoders.png)
     - The value of this it can learn a good feature representation to the input you have.
     - A lot of times we will have a small amount of data to solve problem. One way to tackle this is to use an Autoencoder that learns how to get features from images and train your small dataset on top of that model.
-  - The question is can we generate data (Images) from this Autoencoder?
+  - **The question is can we generate data (Images) from this Autoencoder?**
 
 - **Variational Autoencoders (VAE)**
 
-  - Probabilistic spin on Autoencoders - will let us sample from the model to generate data!
-  - We have z as the features vector that has been formed using the encoder.
-  - We then choose prior p(z) to be simple, e.g. Gaussian. 
-    - Reasonable for hidden attributes: e.g. pose, how much smile.
-  - Conditional p(x|z) is complex (generates image) => represent with neural network
+  - ![](Images/VAE.png)
+  - ![](Images/VAE2.png)
+  - ![](Images/VAE3.png)
   - But we cant compute integral for P(z)p(x|z)dz as the following equation:
-    - ![](Images/25.png)
+  ![](Images/25.png)
   - After resolving all the equations that solves the last equation we should get this:
-    - ![](Images/26.png)
+  - ![](Images/26.png)
+  - ![](Images/VAE4.png)
   - Variational Autoencoder are an approach to generative models but Samples blurrier and lower quality compared to state-of-the-art (GANs)
   - Active areas of research:
     - More flexible approximations, e.g. richer approximate posterior instead of diagonal Gaussian
@@ -1686,6 +1678,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
 
     - **Generator network**: try to fool the discriminator by generating real-looking images.
     - **Discriminator network**: try to distinguish between real and fake images.
+  
+  - ![](Images/GAN.png)
 
   - If we are able to train the Discriminator well then we can train the generator to generate the right images.
 
@@ -1696,9 +1690,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - The label of the generator network will be 0 and the real images are 1.
 
   - To train the network we will do:
-
-    - Gradient ascent on discriminator.
-    - Gradient ascent on generator but with different loss.
+  ![](Images/GAN2.png)
+  ![](Images/GAN3.png)
 
   - You can read the full algorithm with the equations here:
 
@@ -1716,7 +1709,11 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       - Use RELU activation in generator for all layers except the output which uses Tanh
       - Use leaky RELU in discriminator for all the layers.
 
-  - 2017 is the year of the GANs! it has exploded and there are some really good results.
+  - ![](Images/GANS-CONV.png)
+
+  - ![](Images/GAN4.png)
+
+  - ![](Images/GAN5.png)
 
   - Active areas of research also is GANs for all kinds of applications.
 
