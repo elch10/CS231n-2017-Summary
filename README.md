@@ -1765,17 +1765,10 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - ![](Images/29.png)
   - Solution would be:
     - ![](Images/30.png)
-- The value function at state `s`, is the expected cumulative reward from following the policy from state `s`:
-  - `V[pi](s) = Sum(Y^t * r[t], t>0) given s0 = s, pi`
-- The Q-value function at state s and action `a`, is the expected cumulative reward from taking action `a` in state `s` and then following the policy:
-  - `Q[pi](s,a) = Sum(Y^t * r[t], t>0) given s0 = s,a0 = a, pi`
-- The optimal Q-value function `Q*` is the maximum expected cumulative reward achievable from a given (state, action) pair:
-  - `Q*[s,a] = Max(for all of pi on (Sum(Y^t * r[t], t>0) given s0 = s,a0 = a, pi))`
-- Bellman equation
-  - Important thing is RL.
-  - Given any state action pair (s,a) the value of this pair is going to be the reward that you are going to get r plus the value of the state that you end in.
-  - `Q*[s,a] = r + Y * max Q*(s',a') given s,a  # Hint there is no policy in the equation`
-  - The optimal policy `pi*` corresponds to taking the best action in any state as specified by `Q*`
+- **We have `expectation` here and below, because `pi` is stochastic function (with noise, or can be interpret as function returns actions with some probability)**
+- ![](Images/Opt-Policy.png)
+- ![](Images/VQ-functions.png)
+- ![](Images/Bellman.png)
 - We can get the optimal policy using the value iteration algorithm that uses the Bellman equation as an iterative update
   - ![](Images/31.png)
 - Due to the huge space dimensions in real world applications we will use a function approximator to estimate `Q(s,a)`. E.g. a neural network! this is called **Q-learning**
@@ -1785,16 +1778,13 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - Use a function approximator to estimate the action-value function
   - If the function approximator is a deep neural network => deep q-learning
   - The loss function:
-    - ![](Images/32.png)
+  ![](Images/32.png)
 - Now lets consider the "Playing Atari Games" problem:
   - Our total reward are usually the reward we are seeing in the top of the screen.
-  - Q-network Architecture:
-    - ![](Images/33.png)
-  - Learning from batches of consecutive samples is a problem. If we recorded a training data and set the NN to work with it, if the data aren't enough we will go to a high bias error. so we should use "experience replay" instead of consecutive samples where the NN will try the game again and again until it masters it.
-  - Continually update a replay memory table of transitions (`s[t]` , `a[t]` , `r[t]` , `s[t+1]`) as game (experience) episodes are played.
-  - Train Q-network on random minibatches of transitions from the replay memory, instead of consecutive samples.
-  - The full algorithm:
-    - ![](Images/34.png)
+  - ![](Images/33.png)
+  - ![](Images/Replay.png)
+  - The full algorithm (`Q*` is optimal, see above):
+  - ![](Images/34.png)
   - A video that demonstrate the algorithm on Atari game can be found here: "https://www.youtube.com/watch?v=V1eYniJ0Rnk"
 - **Policy Gradients**
   - The second deep learning algorithm that solves the RL.
@@ -1806,18 +1796,26 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
     - ![](Images/35.png)
   - Converges to a local minima of `J(ceta)`, often good enough!
   - REINFORCE algorithm is the algorithm that will get/predict us the best policy
+  ![](Images/REINFORCE1.png)
+  ![](Images/REINFORCE2.png)
+  ![](Images/REINFORCE3.png)
   - Equation and intuition of the Reinforce algorithm:
     - ![](Images/36.png)
     - the problem was high variance with this equation can we solve this?
     - variance reduction is an active research area!
-  - Recurrent Attention Model (RAM) is an algorithm that are based on REINFORCE algorithm and is used for image classification problems:
-    - Take a sequence of “glimpses” selectively focusing on regions of the image, to predict class
-      - Inspiration from human perception and eye movements.
-      - Saves computational resources => scalability
-        - If an image with high resolution you can save a lot of computations
-      - Able to ignore clutter / irrelevant parts of image
+    ![](Images/VarReduction.png)
+    ![](Images/VarReduction2.png)
+    ![](Images/VarReduction3.png)
+    ![](Images/VarReduction4.png)
+  - Actor-Critic Alogrithm
+  ![](Images/ACA.png)
+  ![](Images/ACA2.png)
+  - Reccurent Attention Model
+    ![](Images/RAM.png)
+    ![](Images/RAM2.png)
     - RAM is used now in a lot of tasks: including fine-grained image recognition, image captioning, and visual question-answering
-  - AlphaGo are using a mix of supervised learning and reinforcement learning, It also using policy gradients.
+  - ![](Images/AlphaGO.png)
+- ![](Images/Summary.png)
 - A good course from Standford on deep reinforcement learning
   - http://web.stanford.edu/class/cs234/index.html
   - https://www.youtube.com/playlist?list=PLkFD6_40KJIwTmSbCv9OVJB3YaO4sFwkX
