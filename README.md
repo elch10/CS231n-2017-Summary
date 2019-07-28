@@ -1880,6 +1880,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       - To do that we can make k means clustering on a filter for example and reduce the numbers in it. By using this we can also reduce the number of operations that are used from calculating the gradients.
       - After Trained Quantization the Weights are Discrete.
       - Trained Quantization can reduce the number of bits we need for a number in each layer significantly.
+    - ![](Images/Trained-Quantization.png)
     - Pruning + Trained Quantization can Work Together to reduce the size of the model.
     - Huffman Coding
       - We can use Huffman Coding to reduce/compress the number of bits of the weight.
@@ -1905,6 +1906,8 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
   - **Low Rank Approximation**
     - Is another size reduction algorithm that are used for CNN.
     - Idea is decompose the conv layer and then try both of the composed layers.
+    - ![](Images/Low-Rank-Approximator.png)
+    - ![](Images/FC-Aproxamator.png)
   - **Binary / Ternary Net**
     - Can we only use three numbers to represent weights in NN?
     - The size will be much less with only -1, 0, 1.
@@ -1923,6 +1926,7 @@ After watching all the videos of the famous Standford's [CS231n](http://cs231n.s
       - It can be put to replace the disk in the server.
       - Up to 4 cards per server.
       - Power consumed by this hardware is a lot less than a GPU and the size of the chip is less.
+      - ![](Images/TPU.png)
     - EIE Standford
       - By Han at 2016 [et al. ISCA’16]
       - We don't save zero weights and make quantization for the numbers from the hardware.
